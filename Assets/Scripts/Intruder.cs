@@ -2,7 +2,4 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Intruder : MonoBehaviour
-{
-   
-}
+public class Intruder : MonoBehaviour { }

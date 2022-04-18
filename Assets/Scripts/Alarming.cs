@@ -27,20 +27,22 @@ public class Alarming : MonoBehaviour
     }
 
     private IEnumerator ChangeVolume()
-    {      
+    {
+        int minVolume = 0;
+        int maxVolume = 1;
         float changeStep = 0.2f;
         int finishVolume;
 
         if (_isIntruderInside == true)
-            finishVolume = 1;
+            finishVolume = maxVolume;
         else
-            finishVolume = 0;
+            finishVolume = minVolume;
 
         while (_audioSource.volume != finishVolume)
         {
             _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, finishVolume, changeStep * Time.deltaTime);
 
-            if (_audioSource.volume == 0)
+            if (_audioSource.volume == minVolume)
                 _audioSource.loop = false;
             else
                 _audioSource.loop = true;
