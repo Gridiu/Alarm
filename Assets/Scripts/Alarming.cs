@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class Alarming : MonoBehaviour
 {
     private AudioSource _audioSource;
     private bool _isIntruderInside = false;
-    private IEnumerator _currentCoroutine = null;
+    private Coroutine _currentCoroutine = null;
 
     private void Start()
     {
@@ -21,14 +23,12 @@ public class Alarming : MonoBehaviour
         if (_currentCoroutine != null)
             StopCoroutine(_currentCoroutine);
 
-        _currentCoroutine = ChangeVolume();
-        
-        StartCoroutine(_currentCoroutine);
+        _currentCoroutine = StartCoroutine(ChangeVolume());
     }
 
     private IEnumerator ChangeVolume()
     {      
-        float changeStep = 0.2f * Time.deltaTime;
+        float changeStep = 0.2f;
         int finishVolume;
 
         if (_isIntruderInside == true)
@@ -38,7 +38,7 @@ public class Alarming : MonoBehaviour
 
         while (_audioSource.volume != finishVolume)
         {
-            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, finishVolume, changeStep);
+            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, finishVolume, changeStep * Time.deltaTime);
 
             if (_audioSource.volume == 0)
                 _audioSource.loop = false;

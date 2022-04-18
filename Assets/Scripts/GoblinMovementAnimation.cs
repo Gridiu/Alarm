@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(GoblinMovement))]
+
 public class GoblinMovementAnimation : MonoBehaviour
 {
+    private const string IsRunningLeft = "IsRunningLeft";
+    private const string IsRunningRight = "IsRunningRight";
+    private const string IsIdle = "IsIdle";
+    
     private Animator _animator;
     private GoblinMovement _goblinMovement;
 
@@ -20,21 +27,21 @@ public class GoblinMovementAnimation : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
-            _animator.SetBool("isRunningLeft", false);
-            _animator.SetBool("isRunningRight", false);
-            _animator.SetBool("isIdle", true);
+            _animator.SetBool(IsRunningLeft, false);
+            _animator.SetBool(IsRunningRight, false);
+            _animator.SetBool(IsIdle, true);
         }
     }
 
     private void ChangeAnimationOnRigthMovement()
     {
-        _animator.SetBool("isRunningLeft", false);
-        _animator.SetBool("isRunningRight", true);
+        _animator.SetBool(IsRunningLeft, false);
+        _animator.SetBool(IsRunningRight, true);
     }
 
     private void ChangeAnimationOnLeftMovement()
     {
-        _animator.SetBool("isRunningRight", false);
-        _animator.SetBool("isRunningLeft", true);
+        _animator.SetBool(IsRunningLeft, false);
+        _animator.SetBool(IsRunningRight, true);
     }
 }
